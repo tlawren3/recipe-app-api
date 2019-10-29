@@ -53,3 +53,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Return recipes for the current user"""
         return self.queryset.filter(user=self.request.user).order_by('-title')
+
+    def get_serializer_class(self):
+        """Return appropriate serializer class"""
+        if self.action == 'retrieve':
+            return serializers.RecipeDetailSerializer
+
+        return self.serializer_class
